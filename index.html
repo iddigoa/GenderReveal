@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Invited - Gender Reveal Celebration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero__background">
+            <div class="hero__decorations">
+                <div class="decoration decoration--heart decoration--1"></div>
+                <div class="decoration decoration--heart decoration--2"></div>
+                <div class="decoration decoration--cloud decoration--3"></div>
+                <div class="decoration decoration--cloud decoration--4"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero__content">
+                <h1 class="hero__title">You're Invited</h1>
+                <h2 class="hero__subtitle">Gender Reveal Celebration</h2>
+                <p class="hero__message">Join us for a magical moment as we discover whether our little bundle of joy is a precious prince or princess!</p>
+                <button class="btn btn--primary hero__cta" onclick="scrollToSection('announcement')">
+                    Discover More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Announcement Section -->
+    <section class="announcement" id="announcement">
+        <div class="container">
+            <div class="announcement__content">
+                <div class="announcement__names">Sarah & Michael Johnson</div>
+                <div class="announcement__message">
+                    <p>We're thrilled to share this special moment with our loved ones!</p>
+                    <p>After months of keeping our little secret, we're finally ready to reveal whether our baby will be wearing pink or blue!</p>
+                </div>
+                <div class="announcement__image-placeholder">
+                    <div class="image-placeholder">
+                        <svg class="image-placeholder__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <circle cx="12" cy="12" r="4"/>
+                        </svg>
+                        <p>Beautiful pregnancy photo goes here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Details Section -->
+    <section class="event-details" id="event-details">
+        <div class="container">
+            <h2 class="section-title">Celebration Details</h2>
+            <div class="event-details__grid">
+                <div class="event-detail card">
+                    <div class="card__body">
+                        <div class="event-detail__icon">📅</div>
+                        <h3 class="event-detail__title">When</h3>
+                        <p class="event-detail__info">July 15, 2025</p>
+                        <p class="event-detail__info">2:00 PM</p>
+                    </div>
+                </div>
+                <div class="event-detail card">
+                    <div class="card__body">
+                        <div class="event-detail__icon">📍</div>
+                        <h3 class="event-detail__title">Where</h3>
+                        <p class="event-detail__info">The Garden Pavilion</p>
+                        <p class="event-detail__info">123 Celebration Lane<br>Joyville, NY 12345</p>
+                    </div>
+                </div>
+                <div class="event-detail card">
+                    <div class="card__body">
+                        <div class="event-detail__icon">👗</div>
+                        <h3 class="event-detail__title">Dress Code</h3>
+                        <p class="event-detail__info">Casual Elegance</p>
+                        <p class="event-detail__info">Feel free to wear pink or blue!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="countdown" id="countdown">
+        <div class="container">
+            <h2 class="section-title">The Big Reveal In</h2>
+            <div class="countdown__timer">
+                <div class="countdown__item">
+                    <span class="countdown__number" id="days">00</span>
+                    <span class="countdown__label">Days</span>
+                </div>
+                <div class="countdown__item">
+                    <span class="countdown__number" id="hours">00</span>
+                    <span class="countdown__label">Hours</span>
+                </div>
+                <div class="countdown__item">
+                    <span class="countdown__number" id="minutes">00</span>
+                    <span class="countdown__label">Minutes</span>
+                </div>
+                <div class="countdown__item">
+                    <span class="countdown__number" id="seconds">00</span>
+                    <span class="countdown__label">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section class="rsvp" id="rsvp">
+        <div class="container">
+            <h2 class="section-title">Please RSVP</h2>
+            <p class="rsvp__subtitle">We can't wait to celebrate with you!</p>
+            <form class="rsvp__form" id="rsvpForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="guestName">Your Name(s)</label>
+                        <input type="text" class="form-control" id="guestName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="attendees">Number of Attendees</label>
+                        <select class="form-control" id="attendees" required>
+                            <option value="">Select number</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Your Prediction</label>
+                    <div class="prediction-buttons">
+                        <button type="button" class="prediction-btn prediction-btn--girl" data-prediction="girl">
+                            <span class="prediction-btn__emoji">👶🏻</span>
+                            <span class="prediction-btn__text">It's a Girl!</span>
+                        </button>
+                        <button type="button" class="prediction-btn prediction-btn--boy" data-prediction="boy">
+                            <span class="prediction-btn__emoji">👶🏻</span>
+                            <span class="prediction-btn__text">It's a Boy!</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="message">Special Dietary Requirements or Message (Optional)</label>
+                    <textarea class="form-control" id="message" rows="3" placeholder="Any dietary restrictions or special message for us..."></textarea>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full-width">Send RSVP</button>
+            </form>
+            <div class="rsvp__success" id="rsvpSuccess">
+                <h3>Thank You!</h3>
+                <p>Your RSVP has been received. We can't wait to celebrate with you!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Our Journey</h2>
+            <div class="gallery__grid">
+                <div class="gallery__item">
+                    <div class="image-placeholder">
+                        <svg class="image-placeholder__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <circle cx="12" cy="12" r="4"/>
+                        </svg>
+                    </div>
+                    <p class="gallery__caption">First ultrasound</p>
+                </div>
+                <div class="gallery__item">
+                    <div class="image-placeholder">
+                        <svg class="image-placeholder__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <circle cx="12" cy="12" r="4"/>
+                        </svg>
+                    </div>
+                    <p class="gallery__caption">Baby bump at 20 weeks</p>
+                </div>
+                <div class="gallery__item">
+                    <div class="image-placeholder">
+                        <svg class="image-placeholder__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <circle cx="12" cy="12" r="4"/>
+                        </svg>
+                    </div>
+                    <p class="gallery__caption">Nursery preparations</p>
+                </div>
+                <div class="gallery__item">
+                    <div class="image-placeholder">
+                        <svg class="image-placeholder__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <circle cx="12" cy="12" r="4"/>
+                        </svg>
+                    </div>
+                    <p class="gallery__caption">Baby shower memories</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer__content">
+                <h3 class="footer__title">Contact Us</h3>
+                <div class="footer__info">
+                    <p><strong>Email:</strong> <a href="mailto:sarah.michael@email.com">sarah.michael@email.com</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:5551234567">(555) 123-4567</a></p>
+                </div>
+                <div class="footer__message">
+                    <p>Created with ❤️ for our little miracle</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
