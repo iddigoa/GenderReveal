@@ -155,7 +155,12 @@
     <div class="container mx-auto px-4 py-8 relative z-10">
         <!-- 헤더 -->
         <div class="text-center mb-12">
-            <h1 class="title-text text-6xl text-white mb-4">🎉 Berry's Gender Reveal Party 🎉</h1>
+            <h1 class="title-text text-6xl text-white mb-4">  
+                <span>Berry's</span>
+                <span>Gender</span>
+                <span>Reveal</span>
+                <span>🎉Party🎉</span>
+            </h1>
             <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-3xl p-6 inline-block">
                 <p class="text-2xl text-white font-semibold">우리 소중한 Berry 👶</p>
                 <p class="text-xl text-white mt-2">만날 날: 2025년 12월 21일 💫</p>
@@ -191,7 +196,7 @@
         <div id="revealSection" class="text-center hidden">
             <div id="balloonContainer" class="relative h-64 mb-8"></div>
             <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-3xl p-8 inline-block">
-                <h2 class="title-text text-5xl text-white mb-4" id="revealText">🎉 축하합니다! 🎉</h2>
+                <h2 class="title-text text-4xl text-white mb-4" id="revealText">🎉 축하합니다! 🎉</h2>
                 <p class="text-2xl text-white" id="genderText"></p>
             </div>
         </div>
@@ -206,7 +211,7 @@
         // =====================================
         // 전역 설정 변수 (여기서 성별을 설정하세요!)
         // =====================================
-        const BABY_GENDER = 'boy'; // 'boy' 또는 'girl'로 설정
+        const BABY_GENDER = 'girl'; // 'boy' 또는 'girl'로 설정
         
         // 변수들
         let clickCount = 0;
