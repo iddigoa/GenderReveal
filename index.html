@@ -1,24 +1,390 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Gender Reveal Party 🎉</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berry의 Gender Reveal Party 🎉</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .party-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .gift-box {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-box.shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .balloon {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            opacity: 0;
+            animation: balloonRise 3s ease-out forwards;
+        }
+
+        @keyframes balloonRise {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.5);
+            }
+            100% {
+                opacity: 0.8;
+                transform: translateY(-400px) scale(1);
+            }
+        }
+
+        .firework {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: fireworkExplode 1s ease-out forwards;
+        }
+
+        @keyframes fireworkExplode {
+            0% {
+                opacity: 1;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+
+        .photo-frame {
+            border: 8px solid #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+        }
+
+        .photo-frame:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .click-counter {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .title-text {
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .revealed {
+            animation: revealAnimation 2s ease-out forwards;
+        }
+
+        @keyframes revealAnimation {
+            0% { transform: scale(0) rotate(180deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>축하합니다! 👶🏻</h1>
-    <p>아기가 곧 태어나요! 성별을 확인해보세요.</p>
-    <button id="revealButton">성별 확인하기</button>
-    
-    <div class="animation" id="animation">
-      <img src="images/pic1.jpg" class="image hidden" id="image1">
-      <img src="images/pic2.jpg" class="image hidden" id="image2">
+    <!-- 파티 배경 장식 -->
+    <div class="party-bg">
+        <div class="floating-element text-4xl" style="top: 10%; left: 10%; animation-delay: 0s;">🎈</div>
+        <div class="floating-element text-3xl" style="top: 20%; right: 15%; animation-delay: 1s;">🎊</div>
+        <div class="floating-element text-4xl" style="top: 60%; left: 5%; animation-delay: 2s;">🌟</div>
+        <div class="floating-element text-3xl" style="bottom: 20%; right: 10%; animation-delay: 3s;">🎁</div>
+        <div class="floating-element text-4xl" style="top: 40%; right: 5%; animation-delay: 4s;">💕</div>
+        <div class="floating-element text-3xl" style="bottom: 40%; left: 15%; animation-delay: 5s;">🌈</div>
     </div>
 
-    <h2 class="gender-result hidden" id="genderResult"></h2>
-  </div>
+    <div class="container mx-auto px-4 py-8 relative z-10">
+        <!-- 헤더 -->
+        <div class="text-center mb-12">
+            <h1 class="title-text text-6xl text-white mb-4">🎉 Berry's Gender Reveal Party 🎉</h1>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-3xl p-6 inline-block">
+                <p class="text-2xl text-white font-semibold">우리 소중한 Berry 👶</p>
+                <p class="text-xl text-white mt-2">만날 날: 2025년 12월 21일 💫</p>
+            </div>
+        </div>
 
-  <script src="script.js"></script>
+        <!-- 사진 섹션 -->
+        <div class="flex justify-center space-x-8 mb-12">
+            <div class="photo-frame">
+                <img src="image1.jpg" alt="사진 1" class="w-48 h-48 object-cover rounded-xl" onerror="this.parentElement.style.display='none'">
+            </div>
+            <div class="photo-frame">
+                <img src="image2.jpg" alt="사진 2" class="w-48 h-48 object-cover rounded-xl" onerror="this.parentElement.style.display='none'">
+            </div>
+        </div>
+
+        <!-- 클릭 카운터 -->
+        <div class="text-center mb-8">
+            <div class="click-counter inline-block">
+                <p class="text-lg font-semibold text-gray-700">선물상자를 클릭해주세요! 🎁</p>
+                <p class="text-2xl font-bold text-pink-500" id="clickCounter">0 / 10</p>
+            </div>
+        </div>
+
+        <!-- 선물상자 -->
+        <div class="flex justify-center mb-12">
+            <div id="giftBox" class="gift-box">
+                <div class="text-9xl">🎁</div>
+            </div>
+        </div>
+
+        <!-- 결과 섹션 -->
+        <div id="revealSection" class="text-center hidden">
+            <div id="balloonContainer" class="relative h-64 mb-8"></div>
+            <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-3xl p-8 inline-block">
+                <h2 class="title-text text-5xl text-white mb-4" id="revealText">🎉 축하합니다! 🎉</h2>
+                <p class="text-2xl text-white" id="genderText"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 -->
+    <audio id="celebrationAudio" preload="auto">
+        <source src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//OEZAAADwAABHiAAQAAAaQAAAAgAAA8AAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // =====================================
+        // 전역 설정 변수 (여기서 성별을 설정하세요!)
+        // =====================================
+        const BABY_GENDER = 'boy'; // 'boy' 또는 'girl'로 설정
+        
+        // 변수들
+        let clickCount = 0;
+        const maxClicks = 10;
+        const giftBox = document.getElementById('giftBox');
+        const clickCounter = document.getElementById('clickCounter');
+        const revealSection = document.getElementById('revealSection');
+        const revealText = document.getElementById('revealText');
+        const genderText = document.getElementById('genderText');
+        const balloonContainer = document.getElementById('balloonContainer');
+        const celebrationAudio = document.getElementById('celebrationAudio');
+
+        // 선물상자 클릭 이벤트
+        giftBox.addEventListener('click', function() {
+            if (clickCount < maxClicks) {
+                clickCount++;
+                clickCounter.textContent = `${clickCount} / ${maxClicks}`;
+                
+                // 흔들기 효과
+                giftBox.classList.add('shake');
+                setTimeout(() => giftBox.classList.remove('shake'), 500);
+                
+                // 클릭할 때마다 작은 파티클 효과
+                createSmallParticles();
+                
+                if (clickCount === maxClicks) {
+                    setTimeout(revealGender, 500);
+                }
+            }
+        });
+
+        function revealGender() {
+            // 선물상자 숨기기
+            giftBox.style.display = 'none';
+            
+            // 결과 섹션 보이기
+            revealSection.classList.remove('hidden');
+            revealSection.classList.add('revealed');
+            
+            // 성별에 따른 설정
+            const isGirl = BABY_GENDER === 'girl';
+            const balloonColor = isGirl ? '#ff69b4' : '#4169e1';
+            const message = isGirl ? "🌸 소중한 딸 공주님이에요! 🌸" : "💙 멋진 아들 왕자님이에요! 💙";
+            
+            genderText.textContent = message;
+            
+            // 풍선 애니메이션
+            createBalloons(balloonColor);
+            
+            // 폭죽 효과
+            createFireworks();
+            
+            // 배경음 재생 (간단한 효과음)
+            playSuccessSound();
+            
+            // 배경색 변경
+            document.body.style.background = isGirl 
+                ? 'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)'
+                : 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)';
+        }
+
+        function createBalloons(color) {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const balloon = document.createElement('div');
+                    balloon.className = 'balloon';
+                    balloon.style.backgroundColor = color;
+                    balloon.style.left = Math.random() * 80 + 10 + '%';
+                    balloon.style.animationDelay = Math.random() * 2 + 's';
+                    balloonContainer.appendChild(balloon);
+                    
+                    // 3초 후 제거
+                    setTimeout(() => balloon.remove(), 3000);
+                }, i * 200);
+            }
+        }
+
+        function createFireworks() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dda0dd'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    firework.style.left = Math.random() * 100 + '%';
+                    firework.style.top = Math.random() * 100 + '%';
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => firework.remove(), 1000);
+                }, i * 100);
+            }
+        }
+
+        function createSmallParticles() {
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.innerHTML = ['✨', '💖', '🌟', '💫'][Math.floor(Math.random() * 4)];
+                particle.style.position = 'absolute';
+                particle.style.left = giftBox.offsetLeft + Math.random() * 100 + 'px';
+                particle.style.top = giftBox.offsetTop + Math.random() * 100 + 'px';
+                particle.style.fontSize = '20px';
+                particle.style.pointerEvents = 'none';
+                particle.style.animation = 'balloonRise 1s ease-out forwards';
+                document.body.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 1000);
+            }
+        }
+
+        function playSuccessSound() {
+            // Web Audio API를 사용한 간단한 축하 사운드
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            function playTone(frequency, duration, delay = 0) {
+                setTimeout(() => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = frequency;
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + duration);
+                }, delay);
+            }
+            
+            // 축하 멜로디
+            playTone(523.25, 0.2, 0);    // C
+            playTone(659.25, 0.2, 200);  // E
+            playTone(783.99, 0.2, 400);  // G
+            playTone(1046.50, 0.4, 600); // C
+        }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎉 Berry Gender Reveal Party 준비 완료!');
+            console.log('📝 현재 설정된 성별:', BABY_GENDER);
+            console.log('💡 성별을 변경하려면 스크립트 상단의 BABY_GENDER 변수를 수정하세요.');
+        });
+    </script>
+
+    <!-- README 정보를 HTML 주석으로 포함 -->
+    <!--
+    =====================================
+    Berry's Gender Reveal Party 사용법
+    =====================================
+    
+    🎯 설정 방법:
+    1. 성별 설정: 스크립트 상단의 BABY_GENDER 변수를 수정
+       - 아들: BABY_GENDER = 'boy'
+       - 딸: BABY_GENDER = 'girl'
+    
+    2. 사진 추가: 같은 폴더에 이미지 파일 업로드
+       - image1.jpg (첫 번째 사진)
+       - image2.jpg (두 번째 사진)
+    
+    🎮 사용법:
+    - 선물상자를 10번 클릭하면 성별이 공개됩니다
+    - 클릭할 때마다 애니메이션과 파티클 효과가 나타납니다
+    - 최종 공개 시 풍선, 폭죽, 효과음이 함께 재생됩니다
+    
+    🎨 특징:
+    - 반응형 디자인 (모바일/데스크톱 호환)
+    - 인터랙티브 애니메이션
+    - 실시간 클릭 카운터
+    - 성별별 다른 색상 테마
+    - 배경 파티 장식 효과
+    
+    💝 개인화:
+    - 태명과 출산예정일은 HTML에서 직접 수정 가능
+    - 색상과 애니메이션은 CSS에서 커스터마이징 가능
+    -->
 </body>
 </html>
